@@ -21,6 +21,7 @@ def _extract_patches_batch(b, img, offsets, patch_size, num_patches, extract_pat
         This functions returns a tensor of patches of size [num_patches, channels, width, height] """
     patches = []
 
+    # Extracting in parallel is more expensive than doing it sequentially. This I left it in here
     if extract_patch_parallel:
         num_jobs = min(os.cpu_count(), num_patches)
         patches = Parallel(n_jobs=num_jobs)(
@@ -41,14 +42,17 @@ def extract_patches(img, offsets, patch_size, extract_batch_parallel=False):
     num_patches = offsets.shape[1]
     batch_size = img.shape[0]
 
+    # I pad the images with zeros for the cases that a part of the patch falls outside the image
     pad_const = int(patch_size[0].item() / 2)
     pad_func = torch.nn.ConstantPad2d(pad_const, 0.0)
     img = pad_func(img)
 
+    # Add the pad_const to the offsets, because everything is now shifted by pad_const
     offsets = offsets + pad_const
 
     all_patches = []
 
+    # Extracting in parallel is more expensive than doing it sequentially. This I left it in here
     if extract_batch_parallel:
         num_jobs = min(os.cpu_count(), batch_size)
         all_patches = Parallel(n_jobs=num_jobs)(
