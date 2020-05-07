@@ -5,7 +5,7 @@ import torch.distributions as dist
 
 
 def _sample_with_replacement(logits, n_samples):
-    """Sample with replacement using the tensorflow op."""
+    """Sample with replacement using the pytorch categorical distribution op."""
     distribution = dist.categorical.Categorical(logits=logits)
     return distribution.sample(sample_shape=torch.Size([n_samples])).transpose(0, 1)
 
@@ -31,14 +31,12 @@ def sample(n_samples, attention, sample_space, replace=False,
     """Sample from the passed in attention distribution.
     Arguments
     ---------
-        n_samples: int, the number of samples per datapoint
-        attention: tensor, the attention distribution per datapoint (could be
-                   logits or normalized)
-        sample_space: This should always equal K.shape(attention)[1:]
-        replace: bool, sample with replacement if set to True (defaults to
-                 False)
-        use_logits: bool, assume the input is logits if set to True (defaults
-                    to False)
+    n_samples: int, the number of samples per datapoint
+    attention: tensor, the attention distribution per datapoint (could be logits
+               or normalized)
+    sample_space: This should always equal K.shape(attention)[1:]
+    replace: bool, sample with replacement if set to True (defaults to False)
+    use_logits: bool, assume the input is logits if set to True (defaults to False)
     """
     # Make sure we have logits and choose replacement or not
     logits = attention if use_logits else torch.log(attention)

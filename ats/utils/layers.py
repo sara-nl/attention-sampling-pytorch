@@ -4,7 +4,7 @@ import torch.nn.functional as F
 
 
 class SampleSoftmax(nn.Module):
-    """Apply softmax to the whole sample not just the last dimension.
+    """ Apply softmax to the whole sample not just the last dimension.
         Arguments
         ---------
         squeeze_channels: bool, if True then squeeze the channel dimension of the input

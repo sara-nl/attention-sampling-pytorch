@@ -7,11 +7,6 @@ from ..utils import to_tensor, to_float32, to_int32, expand_many
 
 def _extract_patch(img_b, coord, patch_size):
     """ Extract a single patch """
-    # x_start = int((coord[0] - patch_size[0] / 2))  # + pad_const
-    # x_end = int((coord[0] + patch_size[0] / 2))  # + pad_const
-    # y_start = int((coord[1] - patch_size[1] / 2))  # + pad_const
-    # y_end = int((coord[1] + patch_size[1] / 2))  # + pad_const
-
     x_start = int(coord[0])
     x_end = x_start + int(patch_size[0])
     y_start = int(coord[1])
@@ -23,7 +18,7 @@ def _extract_patch(img_b, coord, patch_size):
 
 def _extract_patches_batch(b, img, offsets, patch_size, num_patches, extract_patch_parallel=False):
     """ Extract patches for a single batch. This function can be called in a for loop or in parallel.
-        This functions returns an array of patches of size [num_patches, channels, width, height] """
+        This functions returns a tensor of patches of size [num_patches, channels, width, height] """
     patches = []
 
     if extract_patch_parallel:
@@ -42,7 +37,6 @@ def _extract_patches_batch(b, img, offsets, patch_size, num_patches, extract_pat
 
 def extract_patches(img, offsets, patch_size, extract_batch_parallel=False):
     img = img.permute(0, 3, 1, 2)
-    device = img.device
 
     num_patches = offsets.shape[1]
     batch_size = img.shape[0]
@@ -71,15 +65,14 @@ def extract_patches(img, offsets, patch_size, extract_batch_parallel=False):
 
 class FromTensors:
     def __init__(self, xs, y):
-        """Given input tensors for each level of resolution provide the
-        patches.
+        """Given input tensors for each level of resolution provide the patches.
         Arguments
         ---------
-            xs: list of tensors, one tensor per resolution in ascending
-                resolutions, namely the lowest resolution is 0 and the highest
-                is len(xs)-1
-            y: tensor or list of tensors or None, the targets can be anything
-               since it is simply returned as is
+        xs: list of tensors, one tensor per resolution in ascending
+            resolutions, namely the lowest resolution is 0 and the highest
+            is len(xs)-1
+        y: tensor or list of tensors or None, the targets can be anything
+           since it is simply returned as is
         """
         self._xs = xs
         self._y = y

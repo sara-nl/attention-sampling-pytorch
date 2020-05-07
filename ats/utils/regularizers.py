@@ -6,10 +6,10 @@ class MultinomialEntropy(nn.Module):
     """Increase or decrease the entropy of a multinomial distribution.
     Arguments
     ---------
-        strength: A float that defines the strength and direction of the
-                  regularizer. A positive number increases the entropy, a
-                  negative number decreases the entropy.
-        eps: A small float to avoid numerical errors when computing the entropy
+    strength: A float that defines the strength and direction of the
+              regularizer. A positive number increases the entropy, a
+              negative number decreases the entropy.
+    eps: A small float to avoid numerical errors when computing the entropy
     """
 
     def __init__(self, strength=1, eps=1e-6):
@@ -22,4 +22,5 @@ class MultinomialEntropy(nn.Module):
 
     def forward(self, x):
         logx = torch.log(x + self.eps)
-        return self.strength * torch.sum(x * logx) / float(x.shape[0])
+        # Formally the minus sign should be here
+        return - self.strength * torch.sum(x * logx) / float(x.shape[0])

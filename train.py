@@ -25,7 +25,7 @@ def train(model, optimizer, train_loader, criterion, entropy_loss_func, opts):
 
         entropy_loss = entropy_loss_func(attention_map)
 
-        loss = criterion(y, label) + entropy_loss
+        loss = criterion(y, label) - entropy_loss
         loss.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), opts.clipnorm)
         optimizer.step()
@@ -59,7 +59,7 @@ def evaluate(model, test_loader, criterion, entropy_loss_func, opts):
         y, attention_map, patches, x_low = model(x_low, x_high)
 
         entropy_loss = entropy_loss_func(attention_map)
-        loss = criterion(y, label) + entropy_loss
+        loss = criterion(y, label) - entropy_loss
 
         loss_value = loss.item()
         losses.append(loss_value)

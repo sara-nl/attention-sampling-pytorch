@@ -1,10 +1,4 @@
-#
-# Copyright (c) 2019 Idiap Research Institute, http://www.idiap.ch/
-# Written by Angelos Katharopoulos <angelos.katharopoulos@idiap.ch>
-#
-
 """Provide utility functions to the rest of the modules."""
-
 from functools import partial
 
 import torch
@@ -21,7 +15,7 @@ def to_tensor(x, dtype=torch.int32, device=None):
 
 
 def to_dtype(x, dtype):
-    """Cast Tensor x to the dtype defined by type, width (in bits and sign)."""
+    """Cast Tensor x to the dtype """
     return x.type(dtype)
 
 

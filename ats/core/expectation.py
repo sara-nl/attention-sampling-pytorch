@@ -5,7 +5,9 @@ from ..utils import expand_many, to_float32
 
 
 class ExpectWithReplacement(torch.autograd.Function):
-
+    """ Custom pytorch layer for calculating the expectation of the sampled patches
+        with replacement.
+    """
     @staticmethod
     def forward(ctx, weights, attention, features):
 
@@ -37,6 +39,9 @@ class ExpectWithReplacement(torch.autograd.Function):
 
 
 class ExpectWithoutReplacement(torch.autograd.Function):
+    """ Custom pytorch layer for calculating the expectation of the sampled patches
+        without replacement.
+    """
 
     @staticmethod
     def forward(ctx, weights, attention, features):
@@ -95,18 +100,18 @@ class ExpectWithoutReplacement(torch.autograd.Function):
 
 
 class Expectation(nn.Module):
-    """Approximate the expectation of all the features under the attention
-            distribution (and its gradient) given a sampled set.
+    """ Approximate the expectation of all the features under the attention
+        distribution (and its gradient) given a sampled set.
 
-            Arguments
-            ---------
-                attention: Tensor of shape (B, N) containing the attention values that
-                           correspond to the sampled features
-                features: Tensor of shape (B, N, ...) containing the sampled features
-                replace: bool describing wether we sampled with or without replacement
-                weights: Tensor of shape (B, N) or None to weigh the samples in case of
-                         multiple samplings of the same position. If None it defaults
-                         to torch.ones(B, N)
+        Arguments
+        ---------
+        attention: Tensor of shape (B, N) containing the attention values that
+                   correspond to the sampled features
+        features: Tensor of shape (B, N, ...) containing the sampled features
+        replace: bool describing if we sampled with or without replacement
+        weights: Tensor of shape (B, N) or None to weigh the samples in case of
+                 multiple samplings of the same position. If None it defaults
+                 o torch.ones(B, N)
         """
 
     def __init__(self, replace=False):

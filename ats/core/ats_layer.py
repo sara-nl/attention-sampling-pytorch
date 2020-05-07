@@ -9,8 +9,7 @@ from .expectation import Expectation
 
 class SamplePatches(nn.Module):
     """SamplePatches samples from a high resolution image using an attention
-    map.
-    The layer expects the following inputs when called `x_low`, `x_high`,
+    map. The layer expects the following inputs when called `x_low`, `x_high`,
     `attention`. `x_low` corresponds to the low resolution view of the image
     which is used to derive the mapping from low resolution to high. `x_high`
     is the tensor from which we extract patches. `attention` is an attention
@@ -18,10 +17,12 @@ class SamplePatches(nn.Module):
     Arguments
     ---------
         n_patches: int, how many patches should be sampled
-        replace: bool, whether we should sample with replacement or without
+        patch_size: int, the size of the patches to be sampled (squared)
         receptive_field: int, how large is the receptive field of the attention
                          network. It is used to map the attention to high
                          resolution patches.
+        replace: bool, whether we should sample with replacement or without
+        use_logits: bool, whether of not logits are used in the attention map
     """
 
     def __init__(self, n_patches, patch_size, receptive_field=0, replace=False,
@@ -35,6 +36,7 @@ class SamplePatches(nn.Module):
         super(SamplePatches, self).__init__(**kwargs)
 
     def compute_output_shape(self, input_shape):
+        """ Legacy function of the pytorch implementation """
         shape_low, shape_high, shape_att = input_shape
 
         # Figure out the shape of the patches
@@ -80,6 +82,24 @@ class SamplePatches(nn.Module):
 
 
 class ATSModel(nn.Module):
+    """ Attention sampling model that perform the entire process of calculating the
+        attention map, sampling the patches, calculating the features of the patches,
+        the expectation and classifices the features.
+        Arguments
+        ---------
+        attention_model: pytorch model, that calculated the attention map given a low
+                         resolution input image
+        feature_model: pytorch model, that takes the patches and calculated features
+                       of the patches
+        classifier: pytorch model, that can do a classification into the number of
+                    classes for the specific problem
+        n_patches: int, the number of patches to sample
+        patch_size: int, the patch size (squared)
+        receptive_field: int, how large is the receptive field of the attention network.
+                         It is used to map the attention to high resolution patches.
+        replace: bool, if to sample with our without replacment
+        use_logts: bool, if to use logits when sampling
+    """
 
     def __init__(self, attention_model, feature_model, classifier, n_patches, patch_size, receptive_field=0,
                  replace=False, use_logits=False):
