@@ -68,3 +68,28 @@ class AttentionModelMNIST(nn.Module):
         out = self.sample_softmax(out)
 
         return out
+
+
+class AttentionModelColonCancer(nn.Module):
+    """ Base class for calculating the attention map of a low resolution image """
+
+    def __init__(self,
+                 squeeze_channels=False,
+                 softmax_smoothing=0.0):
+        super(AttentionModelColonCancer, self).__init__()
+
+        conv1 = nn.Conv2d(in_channels=3, out_channels=8, kernel_size=3, padding_mode='zeros', padding=1)
+        relu1 = nn.ReLU()
+
+        conv2 = nn.Conv2d(in_channels=8, out_channels=8, kernel_size=3, padding_mode='zeros', padding=1)
+        relu2 = nn.ReLU()
+
+        conv3 = nn.Conv2d(in_channels=8, out_channels=1, kernel_size=3, padding_mode='zeros', padding=1)
+
+        sample_softmax = SampleSoftmax(squeeze_channels, softmax_smoothing)
+
+        self.forward_pass = nn.Sequential(conv1, relu1, conv2, relu2, conv3, sample_softmax)
+
+    def forward(self, x_low):
+        out = self.forward_pass(x_low)
+        return out

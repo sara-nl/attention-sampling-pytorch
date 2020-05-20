@@ -118,3 +118,32 @@ class FeatureModelMNIST(nn.Module):
         out = F.normalize(out, p=2, dim=-1)
 
         return out
+
+
+class FeatureModelColonCancer(nn.Module):
+
+    def __init__(self, in_channels, out_channels):
+        super(FeatureModelColonCancer, self).__init__()
+
+        self.feature_extractor_part1 = nn.Sequential(
+            nn.Conv2d(in_channels, 20, kernel_size=5),
+            nn.ReLU(),
+            nn.MaxPool2d(2, stride=2),
+            nn.Conv2d(20, 50, kernel_size=5),
+            nn.ReLU(),
+            nn.MaxPool2d(2, stride=2)
+        )
+
+        self.feature_extractor_part2 = nn.Sequential(
+            nn.Linear(50 * 3 * 3, out_channels),
+            nn.ReLU(),
+        )
+
+    def forward(self, x):
+        out = self.feature_extractor_part1(x)
+        out = out.view(out.shape[0], -1)
+
+        out = self.feature_extractor_part2(out)
+
+        out = F.normalize(out, p=2, dim=-1)
+        return out
