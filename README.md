@@ -1,3 +1,4 @@
+
 # Attention Sampling - Pytorch
 This is a PyTorch implementation of the the paper: ["Processing Megapixel Images with Deep Attention-Sampling Models"](https://arxiv.org/abs/1905.03711). This repository is based on the [original repository](https://github.com/idiap/attention-sampling) belonging to this paper which is written in TensorFlow.
 
@@ -17,4 +18,13 @@ If you have any question about the code or methods used in this repository you c
 
 ## Research
 If this repository has helped you in your research we would value to be acknowledged in your publication.
+
+# Acknowledgement
+This project has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 825292. This project is better known as the ExaMode project. The objectives of the ExaMode project are:
+1. Weakly-supervised knowledge discovery for exascale medical data.  
+2. Develop extreme scale analytic tools for heterogeneous exascale multimodal and multimedia data.  
+3. Healthcare & industry decision-making adoption of extreme-scale analysis and prediction tools.
+
+For more information on the ExaMode project, please visit www.examode.eu. 
+![enter image description here](https://www.examode.eu/wp-content/uploads/2018/11/horizon.jpg) ![enter image description here](https://www.examode.eu/wp-content/uploads/2018/11/flag_yellow.png)
 
