@@ -26,6 +26,6 @@ This project has received funding from the European Union’s Horizon 2020 resea
 3. Healthcare & industry decision-making adoption of extreme-scale analysis and prediction tools.
 
 For more information on the ExaMode project, please visit www.examode.eu. 
-![enter image description here](https://www.examode.eu/wp-content/uploads/2018/11/horizon.jpg)  ![enter image description here](https://www.examode.eu/wp-content/uploads/2018/11/flag_yellow.png) ![enter image description here](https://www.examode.eu/wp-content/uploads/2018/11/cropped-ExaModeLogo_blacklines_TranspBackGround1.png =80x)
+![enter image description here](https://www.examode.eu/wp-content/uploads/2018/11/horizon.jpg)  ![enter image description here](https://www.examode.eu/wp-content/uploads/2018/11/flag_yellow.png) ![enter image description here](https://www.examode.eu/wp-content/uploads/2018/11/cropped-ExaModeLogo_blacklines_TranspBackGround1.png)
 
 
