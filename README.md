@@ -14,7 +14,7 @@ This code repository has been tested on two of the tasks mentioned in the origin
 Dependencies can be found inside the `requirements.txt` file. To install, run `pip3 install -r requirements.txt`. This code repository defaults to running on a GPU if it is available. It has been tested on both CPU and GPU.
 
 ## Questions and contributions
-If you have any question about the code or methods used in this repository you can reach out to joris.mollinga@surfsara.nl. If you find bugs in this code (which could be possible) please also contact me or file an issue. If you want to contribute to this code my making it more efficient (for example, the patch extraction procedure is quite inefficient) please contact me or submit a pull request. 
+If you have any question about the code or methods used in this repository you can reach out to joris.mollinga@surf.nl. If you find bugs in this code (which could be possible) please also contact me or file an issue. If you want to contribute to this code my making it more efficient (for example, the patch extraction procedure is quite inefficient) please contact me or submit a pull request. 
 
 ## Research
 If this repository has helped you in your research we would value to be acknowledged in your publication.
