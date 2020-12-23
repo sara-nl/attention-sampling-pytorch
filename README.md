@@ -8,7 +8,7 @@ The code from the original repository has been rewritten to to a PyTorch 1.4.0 i
 Furthermore, I hope I implemented the part where the expectation is calculated correctly. This uses a custom `backward()` function and I hope there are no bugs in it. 
 
 ##  Performance
-This code repository has been tested on two of the tasks mentioned in the original paper: the Mega-MNIST and the traffic sign detection task. This code base yields comparable results on both tasks. However, the traffic sign detection task requires approximately twice as many epochs to achieve similar results. These experiments can be run by running `mega_mnist.py` and `speed_limits.py`.
+This code repository has been tested on two of the tasks mentioned in the original paper: the Mega-MNIST and the traffic sign detection task. A qualitative analysis of the results show they are comparable to the original work, however a qualitative analysis shows the errors are higher in this code base. A couple of users have alerted me that they can not reproduce the results from the original paper using this code base. I suspect there may still be a couple of bugs in this work. If you intend to use it beware, and any help finding these will be greatly appreciated. Experiments can be run by running `mega_mnist.py` and `speed_limits.py`.
 
 ## Installation
 Dependencies can be found inside the `requirements.txt` file. To install, run `pip3 install -r requirements.txt`. This code repository defaults to running on a GPU if it is available. It has been tested on both CPU and GPU.
